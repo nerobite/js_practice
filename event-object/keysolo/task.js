@@ -17,14 +17,23 @@ class Game {
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода символа вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    // Вешаем обработчик события keydown на весь документ
+    document.addEventListener('keydown', (event) => {
+      // Проверяем, что нажата буква или символ, а не служебная клавиша
+      if (event.key.length === 1) {
+        // Получаем символ, который должен быть введен (приводим к нижнему регистру)
+        const expectedSymbol = this.currentSymbol.textContent.toLowerCase();
+        // Получаем нажатую клавишу (приводим к нижнему регистру)
+        const pressedKey = event.key.toLowerCase();
+        
+        // Сравниваем символы (регистр не важен)
+        if (expectedSymbol === pressedKey) {
+          this.success();
+        } else {
+          this.fail();
+        }
+      }
+    });
   }
 
   success() {
